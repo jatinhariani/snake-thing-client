@@ -4,7 +4,7 @@ const gameConstants = {
   defaultBoardCell: 0,
   fruitCell: -1,
   scoreIncrement: 1,
-  loopInterval: 500
+  loopInterval: 300
 }
 
 const getNewBoard = () => {
@@ -62,6 +62,9 @@ const copyObject = (obj) => {
 }
 
 const checkCollision = (board, newHead) => {
+  if (typeof board[newHead.x] === 'undefined') { // todo: quickfix. refactor
+    return true
+  }
   return [0, -1].indexOf(board[newHead.x][newHead.y]) === -1
 }
 
@@ -103,6 +106,8 @@ export default {
       state.board[5][3] = 2
       state.board[5][4] = 3
       state.snakeDir = 1
+      state.score = 0
+      state.timeElapsed = 0
       state.board = copyObject(state.board) // todo: fix. hack: makes new object. hack.
       state.gameActive = true
       const fruitCell = getFruitCell(state.board)
@@ -128,11 +133,10 @@ export default {
           break
       }
       if (checkCollision(state.board, newHead)) {
-        console.log('collided', head, newHead)
         state.gameActive = false
         clearInterval(state.loop)
       } else {
-        state.timeElapsed = state.timeElapsed + 250
+        state.timeElapsed = state.timeElapsed + gameConstants.loopInterval
         if (checkFruitEaten(state.board, newHead)) {
           state.score += gameConstants.scoreIncrement
           state.board[newHead.x][newHead.y] = newHead.val
@@ -146,6 +150,7 @@ export default {
       }
     },
     SET_GAME: (state, data) => {
+      clearInterval(state.loop)
       state.loop = data
     }
   },
@@ -182,7 +187,7 @@ export default {
       commit('INITIALIZE_SNAKE')
       commit('SET_GAME', window.setInterval(() => {
         commit('MOVE_SNAKE')
-      }, 300))
+      }, gameConstants.loopInterval))
     }
   }
 }

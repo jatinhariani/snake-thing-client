@@ -1,14 +1,18 @@
 <template>
   <div class="container">
-    <div class="row" v-for="(row, index) in $store.state.gameState.board" :key="index">
-      <div class="cell" :class="cellClass($store.state.gameState.board[index][indexCell])" v-for="(cell, indexCell) in row" :key="indexCell">
+    <div class="meta">
+      <div>
+        Time elapsed: {{ $store.state.gameState.timeElapsed }}
+      </div>
+      <div>
+        Score: {{ $store.state.gameState.score }}
       </div>
     </div>
-    <div>
-      Time elapsed: {{ $store.state.gameState.timeElapsed }}
-    </div>
-    <div>
-      Score: {{ $store.state.gameState.score }}
+    <div class="game-container">
+      <div class="row" v-for="(row, index) in $store.state.gameState.board" :key="index">
+        <div class="cell" :class="cellClass($store.state.gameState.board[index][indexCell])" v-for="(cell, indexCell) in row" :key="indexCell">
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -38,16 +42,19 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss">
 div {
   box-sizing: border-box;
 }
 .container {
   margin: 0 auto;
   max-width: 402px;
-  background: yellow;
-  border: 1px solid #888;
 }
+
+.game-container {
+  border: 1px solid #ddd;
+}
+
 .row {
   width: 400px;
   height: 40px;
@@ -63,10 +70,24 @@ div {
 }
 
 .snake-cell {
-  background: black;
+  background: #009688;
 }
 
 .fruit-cell {
-  background: green;
+  background: #ef5350;
+}
+
+.meta {
+  display: flex;
+  background: #009688;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  div {
+    text-align: left;
+    padding: 15px;
+    flex-grow: 1;
+  }
 }
 </style>
