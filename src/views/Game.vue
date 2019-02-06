@@ -14,6 +14,11 @@
         </div>
       </div>
     </div>
+    <div class="help">
+      <h2>Controls:</h2>
+      <p>SPACE: New Game</p>
+      <p>W,A,S,D: Change direction</p>
+    </div>
   </div>
 </template>
 <script>
@@ -89,5 +94,14 @@ div {
     padding: 15px;
     flex-grow: 1;
   }
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-weight: normal;
+}
+
+p {
+  margin: 0;
 }
 </style>
