@@ -2,7 +2,6 @@
   <div class="container">
     <div class="row" v-for="(row, index) in $store.state.gameState.board" :key="index">
       <div class="cell" :class="cellClass($store.state.gameState.board[index][indexCell])" v-for="(cell, indexCell) in row" :key="indexCell">
-        {{ $store.state.gameState.board[index][indexCell]}}
       </div>
     </div>
     <div>
@@ -40,10 +39,14 @@ export default {
 }
 </script>
 <style>
+div {
+  box-sizing: border-box;
+}
 .container {
   margin: 0 auto;
-  max-width: 400px;
+  max-width: 402px;
   background: yellow;
+  border: 1px solid #888;
 }
 .row {
   width: 400px;
@@ -55,7 +58,8 @@ export default {
 .cell {
   width: 40px;
   height: 40px;
-  border: 1px solid black;
+  border-right: 1px solid #f8f8f8;
+  border-bottom: 1px solid #f8f8f8;
 }
 
 .snake-cell {
