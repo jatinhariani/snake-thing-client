@@ -38,7 +38,7 @@ export default {
       }
     },
     cellClass (val) {
-      if(val > 0) {
+      if (val > 0) {
         return 'snake-cell'
       } else if (val < 0) {
         return 'fruit-cell'
